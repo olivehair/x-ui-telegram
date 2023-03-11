@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 from telegram.ext import ContextTypes
 
 load_dotenv()
-SERVER_URLS = os.environ["SERVER_URLS"].split("*")
+URLS_JSON = open('urls.json')
+SERVER_URLS = json.load(URLS_JSON)
 
 
 async def update_clients_info(context: ContextTypes.DEFAULT_TYPE):
