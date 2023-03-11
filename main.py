@@ -43,7 +43,6 @@ async def update_clients_info(context: ContextTypes.DEFAULT_TYPE):
 
         r2 = s.post(URL + "/xui/inbound/list", headers=headers)
         response = r2.json()
-
         for inbound in response['obj']:
             client_stats = inbound.get('clientStats', None)
             if client_stats is None:
@@ -65,9 +64,12 @@ async def update_clients_info(context: ContextTypes.DEFAULT_TYPE):
                             "up": stat['up'],
                             "down": stat['down'],
                             "total": stat['total'],
-                            "expiryTime": stat['expiryTime'],
+                            "expiryTime": stat.get('expiryTime', 0),
                         }
-                        uuid_map.update({client_id: info})
+                        if client_id:
+                            uuid_map.update({client_id: info})
+                        else:
+                            uuid_map.update({client_password: info})
 
     json_object = json.dumps(uuid_map, indent=4)
     with open("sample.json", "w") as outfile:
