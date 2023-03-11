@@ -45,11 +45,15 @@ async def update_clients_info(context: ContextTypes.DEFAULT_TYPE):
         response = r2.json()
 
         for inbound in response['obj']:
-            client_stats = inbound['clientStats']
+            client_stats = inbound.get('clientStats', None)
+            if client_stats is None:
+                client_stats = inbound.get('clientInfo', None)
+
             settings = json.loads(inbound['settings'])
             clients = settings['clients']
             for client in clients:
-                client_id = client["id"]
+                client_id = client.get("id", None)
+                client_password = client.get("password", None)
                 client_email = client['email']
                 for stat in client_stats:
                     if stat['email'] == client_email:
@@ -57,6 +61,7 @@ async def update_clients_info(context: ContextTypes.DEFAULT_TYPE):
                             "enable": stat['enable'],
                             "uuid": client_id,
                             "email": client_email,
+                            "password": client_password,
                             "up": stat['up'],
                             "down": stat['down'],
                             "total": stat['total'],
