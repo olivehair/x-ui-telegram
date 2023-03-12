@@ -46,7 +46,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def price(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    price_msg =\
+    price_msg = \
         """📌تمامی کانفیگ‌ها اختصاصی هستند.
 
         📍بسته ماهانه :
@@ -95,6 +95,8 @@ def create_msg_by_info(info: dict):
     up = get_amount(info, 'up')
     down = get_amount(info, 'down')
     total = get_amount(info, 'total')
+    if total == "۰B":
+        total = "نامحدود"
     if info['expiryTime']:
         expiry_time = int(str(info['expiryTime'])[:-3])
         expiry_time = JalaliDate.fromtimestamp(expiry_time)
