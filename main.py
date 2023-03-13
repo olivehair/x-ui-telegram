@@ -5,16 +5,15 @@ import re
 from dotenv import load_dotenv
 from telegram.ext import ContextTypes
 
-load_dotenv()
-URLS_JSON = open('urls.json')
-SERVER_URLS = json.load(URLS_JSON)
-
 
 async def update_clients_info(context: ContextTypes.DEFAULT_TYPE):
     print("clients info update has started")
+    load_dotenv()
+    urls_json = open('urls.json')
+    server_urls = json.load(urls_json)
     uuid_map = dict()
 
-    for URL in SERVER_URLS:
+    for URL in server_urls:
         url_groups = re.match(r"https://(.*)/(.*)", URL).groups()
         domain_name = url_groups[0]
 
