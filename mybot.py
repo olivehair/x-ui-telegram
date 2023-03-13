@@ -45,6 +45,22 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         "/usage f745f1-972c-4b4y3-cefa-569e0bfc1b16")
 
 
+async def downloadlinks(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Echo the user message."""
+    msg = "📌لینک دانلود نرم افزار v2rayNG برای اندروید :\n" \
+          "https://github.com/2dust/v2rayNG/releases/download/1.7.38/v2rayNG_1.7.38.apk\n\n" \
+          "📌لینک دانلود مستقیم نرم افزار  Fair vpn برای آیفون از App Store :\n" \
+          "https://apps.apple.com/us/app/fair-vpn/id1533873488\n\n" \
+          "📌لینک دانلود فایل فشرده نرم افزار v2rayN برای ویندوز :\n" \
+          "https://github.com/2dust/v2rayN/releases/download/6.12/v2rayN-With-Core.zip\n\n" \
+          "📌لینک دانلود نرم افزار v2rayx/trojanx برای مک :\n\n" \
+          "📍v2rayx\n" \
+          "https://github.com/Cenmrev/V2RayX/releases/download/v1.5.1/V2RayX.app.zip\n\n" \
+          "📍trojanx\n" \
+          "https://github.com/JimLee1996/TrojanX/releases/download/0.4/TrojanX.app.zip"
+    await update.message.reply_text(msg)
+
+
 async def price(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     price_1 = "📍بسته ماهانه :\n" \
               "ماهی ۱۰ گیگ ۶۰ تومن\n" \
@@ -137,6 +153,7 @@ def main() -> None:
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("usage", usage))
     application.add_handler(CommandHandler("price", price))
+    application.add_handler(CommandHandler("downloadlinks", downloadlinks))
 
     application.job_queue.run_repeating(
         update_clients_info,
