@@ -78,13 +78,6 @@ async def price(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(price_2)
 
 
-def get_usage_by_uuid(uuid: str):
-    f = open('sample.json')
-    data = json.load(f)
-    info = data.get(uuid, None)
-    return info
-
-
 def create_msg_by_info(info: dict):
     enable = "فعال" if info['enable'] else "غیرفعال"
     email = info['email']
@@ -123,12 +116,14 @@ async def usage(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Get the user traffic usage."""
     message = update.message.text
     uuid = re.match("/usage (.*)", message).groups()[0]
-    info = get_usage_by_uuid(uuid)
-    if info:
-        msg = create_msg_by_info(info)
-    else:
-        msg = "متاسفانه! هیچ کاربری با UUID درخواستی یافت نشد."
-    await update.message.reply_text(msg)
+    with open('sample.json', 'r') as f:
+        data = json.load(f)
+        info = data.get(uuid, None)
+        if info:
+            msg = create_msg_by_info(info)
+        else:
+            msg = "متاسفانه! هیچ کاربری با UUID درخواستی یافت نشد."
+        await update.message.reply_text(msg)
 
 
 def main() -> None:
