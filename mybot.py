@@ -58,7 +58,7 @@ async def downloadlinks(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
           "https://github.com/Cenmrev/V2RayX/releases/download/v1.5.1/V2RayX.app.zip\n\n" \
           "📍trojanx\n" \
           "https://github.com/JimLee1996/TrojanX/releases/download/0.4/TrojanX.app.zip"
-    await update.message.reply_text(msg)
+    await update.message.reply_text(msg, disable_web_page_preview=True)
 
 
 async def price(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
